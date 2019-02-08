@@ -164,9 +164,10 @@ class _CPanelClient:
         response_data = json.load(response)['cpanelresult']
         logger.debug(response_data)
         for zone in response_data['data'][0]['zones']:
-            if record_domain is zone or record_domain.endswith('.' + zone):
-                cpanel_zone = zone
-                cpanel_name = record_domain[:-len(zone)-1]
+            if zone != "co.uk":
+                if record_domain is zone or record_domain.endswith('.' + zone):
+                    cpanel_zone = zone
+                    cpanel_name = record_domain[:-len(zone)-1]
 
         if not cpanel_zone:
             raise errors.PluginError("Could not get the zone for %s. Is this name in a zone managed in cPanel?" % record_domain)
